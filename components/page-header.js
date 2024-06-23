@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ToggleMode from './toggleMode';
 
 const PageHeader = ({ className }) => {
   return (
@@ -10,7 +11,7 @@ const PageHeader = ({ className }) => {
         Finance Tracker
       </Link>
       <div className="flex items-center space-x-4">
-        <button>Toggle Darkmode</button>
+        <ToggleMode />
         <div>User Dropdown</div>
       </div>
     </header>
