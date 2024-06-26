@@ -1,4 +1,6 @@
-const Input = (props) => {
+import { forwardRef } from 'react';
+
+const Input = (props, ref) => {
   const styles = {
     checkbox:
       'text-gray-700 bg-white border-gray-300 rounded shadow-sm cursor-pointer dark:border-gray-700 dark:bg-gray-950 dark:text-gray-500',
@@ -9,9 +11,10 @@ const Input = (props) => {
   return (
     <input
       {...props}
+      ref={ref}
       className={styles[props.type] ?? styles['default']}
     ></input>
   );
 };
 
-export default Input;
+export default forwardRef(Input);

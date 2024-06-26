@@ -6,6 +6,12 @@ import Button from '@/components/button';
 import Label from '@/components/label';
 import Input from '@/components/input';
 import Select from '@/components/select';
+import Seperator from '@/components/seperator';
+import Skeleton from '@/components/skeleton';
+
+export const metadata = {
+  title: 'Playground',
+};
 
 const PlayGroundPage = () => {
   return (
@@ -13,14 +19,14 @@ const PlayGroundPage = () => {
       <h1 className="mt-8 text-4xl">Playground</h1>
       <div>
         <h2 className="mb-4 font-mono text-lg ">Page Header</h2>
-        <hr className="mb-4 border-gray-200 dark:border-gray-800 " />
+        <Seperator />
         <div className="flex space-x-4 ">
           <PageHeader />
         </div>
       </div>
       <div>
         <h2 className="mb-4 font-mono text-lg ">Trend</h2>
-        <hr className="mb-4 border-gray-200 dark:border-gray-800 " />
+        <Seperator />
         <div className="flex space-x-4 ">
           <Trend type="Income" amount={1500} prevAmount={980} />
           <Trend type="Expense" amount={700} prevAmount={1000} />
@@ -32,10 +38,10 @@ const PlayGroundPage = () => {
         <h2 className="mb-4 font-mono text-lg ">
           TransitionSummaryItem + TransitionItem
         </h2>
-        <hr className="mb-4 border-gray-200 dark:border-gray-800 " />
+        <Seperator />
         <div className="space-y-4 ">
           <TransitionSummaryItem amount={4500} date="2024-05-01" />
-          <hr className="mb-4 border-gray-200 dark:border-gray-800 " />
+          <Seperator />
           <TransitionItem
             type="Income"
             category=""
@@ -62,7 +68,7 @@ const PlayGroundPage = () => {
       </div>
       <div>
         <h2 className="mb-4 font-mono text-lg ">Button</h2>
-        <hr className="mb-4 border-gray-200 dark:border-gray-800 " />
+        <Seperator />
         <div className="space-x-4 ">
           <Button>Hello</Button>
           <Button varient="outline">Hello</Button>
@@ -75,7 +81,7 @@ const PlayGroundPage = () => {
 
       <div>
         <h2 className="mb-4 font-mono text-lg ">Forms</h2>
-        <hr className="mb-4 border-gray-200 dark:border-gray-800 " />
+        <Seperator />
         <div className="grid grid-cols-2 gap-4">
           <div>
             <Label className="block mb-1 " htmlFor="name">
@@ -98,6 +104,23 @@ const PlayGroundPage = () => {
             <Label className="ml-2 " htmlFor="terms">
               Virgin
             </Label>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 className="mb-4 font-mono text-lg ">Loading Skeleton</h2>
+        <Seperator />
+        <div className="space-y-8 ">
+          <div className="flex space-x-4 ">
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </div>
+          <div className="space-y-4 ">
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
           </div>
         </div>
       </div>

@@ -35,6 +35,7 @@ const TransitionItem = ({ type, category, description, amount }) => {
         <IconComponent className={`${colors} mr-2 w-5 h-5 hidden sm:block`} />
         <span>{description}</span>
       </div>
+
       <div className=" min-w-[150px] items-center hidden md:flex">
         {category && (
           <div className="px-2 text-xs text-gray-100 bg-gray-900 rounded-md dark:bg-gray-100 dark:text-black py-0.5">

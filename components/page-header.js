@@ -3,7 +3,9 @@ import ToggleMode from './toggleMode';
 
 const PageHeader = ({ className }) => {
   return (
-    <header className={`flex items-center justify-between ${className} w-full`}>
+    <header
+      className={`flex items-center justify-between ${className} w-full py-4`}
+    >
       <Link
         href="/dashboard"
         className="text-xl hover:underline hover:underline-offset-8 decoration-2"
