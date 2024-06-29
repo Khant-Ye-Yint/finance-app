@@ -21,7 +21,7 @@ const Trend = ({ type, amount, prevAmount }) => {
     [amount, prevAmount]
   );
 
-  const formattedCurrency = useFormatCurrency(amount, 'mm', 'MMK');
+  const formattedCurrency = useFormatCurrency(amount, 'mm', 'mmk');
 
   // const formatCurrency = (amount) =>
   //   new Intl.NumberFormat('mm', {

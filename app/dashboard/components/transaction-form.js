@@ -6,6 +6,12 @@ import Label from '@/components/label';
 import Select from '@/components/select';
 import { types, categories } from '@/lib/consts';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { transactionSchema } from '@/lib/validation';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { purgeTransactionListCache } from '@/lib/actions';
+import FormError from '@/components/form-error';
 
 const TransactionForm = () => {
   const {
@@ -15,9 +21,31 @@ const TransactionForm = () => {
     formState: { errors },
   } = useForm({
     mode: 'onTouched',
+    resolver: zodResolver(transactionSchema),
   });
 
-  const submitHandler = (data) => console.log(data);
+  const router = useRouter();
+  const [saving, setSaving] = useState(false);
+
+  const submitHandler = async (data) => {
+    setSaving(true);
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/transactions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...data,
+          created_at: `${data.created_at}T00:00:00`,
+        }),
+      });
+      await purgeTransactionListCache();
+      router.push('/dashboard');
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
     <form className="space-y-4 " onSubmit={handleSubmit(submitHandler)}>
@@ -29,6 +57,7 @@ const TransactionForm = () => {
               <option key={type}>{type}</option>
             ))}
           </Select>
+          <FormError error={errors.type} />
         </div>
         <div>
           <Label className="mb-1 ">Category</Label>
@@ -36,44 +65,28 @@ const TransactionForm = () => {
             {categories.map((category) => (
               <option key={category}>{category}</option>
             ))}
+            <FormError error={errors.category} />
           </Select>
         </div>
         <div>
           <Label className="mb-1 ">Date</Label>
-          <Input
-            {...register('created_at', { required: 'The date is required.' })}
-          />
-          {errors.created_at && (
-            <p className="mt-1 text-red-500 ">* {errors.created_at.message}</p>
-          )}
+          <Input {...register('created_at')} />
+          <FormError error={errors.created_at} />
         </div>
         <div>
           <Label className="mb-1 ">Amount</Label>
-          <Input
-            type="number"
-            {...register('amount', {
-              required: 'The amount is required.',
-              valueAsNumber: true,
-              min: { value: 1, message: 'Amount must me at least 1.' },
-            })}
-          />
-          {errors.amount && (
-            <p className="mt-1 text-red-500 ">* {errors.amount.message}</p>
-          )}
+          <Input type="number" {...register('amount')} />
+          <FormError error={errors.amount} />
         </div>
         <div className="col-span-1 md:col-span-2 ">
           <Label className="mb-1 ">Description</Label>
-          <Input
-            {...register('description', {
-              required: 'The description is required.',
-            })}
-          />
-          {errors.description && (
-            <p className="mt-1 text-red-500 ">* {errors.description.message}</p>
-          )}
+          <Input {...register('description')} />
+          <FormError error={errors.description} />
         </div>
         <div className="flex justify-end col-span-1 md:col-span-2">
-          <Button type="submit">Save</Button>
+          <Button type="submit" disabled={saving}>
+            Save
+          </Button>
         </div>
       </div>
     </form>

@@ -20,8 +20,8 @@ const groupAndSumTransitionByDate = (transitions) => {
 };
 
 const TransitionList = async () => {
-  const response = await fetch('http://localhost:3100/transactions', {
-    cache: 'no-store',
+  const response = await fetch(`${process.env.API_URL}/transactions`, {
+    next: { tags: ['transaction-list'] },
   });
   const transitions = await response.json();
 

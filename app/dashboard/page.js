@@ -6,12 +6,18 @@ import TrendFallBack from './components/trend-fallback';
 import { PlusCircle } from 'lucide-react';
 import Link from 'next/link';
 import { varients, sizes } from '@/lib/variants';
+import { createClient } from '@/lib/supabase/server';
 
 export const metadata = {
   title: 'Dashboard',
 };
 
-const DashboardPage = () => {
+const DashboardPage = async () => {
+  const client = createClient();
+  const { data, error } = await client.from('transactions').select();
+  console.log(data);
+  console.log(error);
+
   return (
     <>
       <section className="mb-8 ">
