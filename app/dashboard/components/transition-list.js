@@ -1,6 +1,7 @@
 import Seperator from '@/components/seperator';
 import TransitionItem from '@/components/transitionItem';
 import TransitionSummaryItem from '@/components/transitionSummaryItem';
+import { createClient } from '@/lib/supabase/server';
 
 const groupAndSumTransitionByDate = (transitions) => {
   const grouped = {};
@@ -20,10 +21,11 @@ const groupAndSumTransitionByDate = (transitions) => {
 };
 
 const TransitionList = async () => {
-  const response = await fetch(`${process.env.API_URL}/transactions`, {
-    next: { tags: ['transaction-list'] },
-  });
-  const transitions = await response.json();
+  const supabase = createClient();
+  const { data: transitions, error } = await supabase
+    .from('transactions')
+    .select()
+    .order('created_at', { ascending: false });
 
   const groupedTransitions = groupAndSumTransitionByDate(transitions);
 
