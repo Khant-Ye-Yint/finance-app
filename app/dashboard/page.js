@@ -17,14 +17,14 @@ export const metadata = {
 const DashboardPage = async ({ searchParams }) => {
   const range = searchParams?.range ?? 'last30days';
   return (
-    <>
-      <section className="flex items-center justify-between mb-8 ">
+    <div className="space-y-8 ">
+      <section className="flex items-center justify-between ">
         <h1 className="text-4xl font-semibold ">Summary</h1>
         <aside>
           <Range />
         </aside>
       </section>
-      <section className="grid grid-cols-2 gap-8 mb-8 md:grid-cols-4">
+      <section className="grid grid-cols-2 gap-8 md:grid-cols-4">
         {types.map((type) => (
           <ErrorBoundary
             fallback={
@@ -40,7 +40,7 @@ const DashboardPage = async ({ searchParams }) => {
           </ErrorBoundary>
         ))}
       </section>
-      <section className="flex items-center justify-between mb-8">
+      <section className="flex items-center justify-between">
         <h2 className="text-2xl">Transactions</h2>
         <Link
           href="dashboard/transaction/add"
@@ -51,9 +51,9 @@ const DashboardPage = async ({ searchParams }) => {
         </Link>
       </section>
       <Suspense fallback={<TransitionListFallback />}>
-        <TransitionList />
+        <TransitionList range={range} />
       </Suspense>
-    </>
+    </div>
   );
 };
 

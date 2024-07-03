@@ -2,30 +2,20 @@ import Seperator from '@/components/seperator';
 import TransitionItem from '@/components/transitionItem';
 import TransitionSummaryItem from '@/components/transitionSummaryItem';
 import { createClient } from '@/lib/supabase/server';
+import { groupAndSumTransitionByDate } from '@/lib/utils';
 
-const groupAndSumTransitionByDate = (transitions) => {
-  const grouped = {};
-
-  for (const transition of transitions) {
-    const date = transition.created_at.split('T')[0];
-    if (!grouped[date]) {
-      grouped[date] = { transitions: [], amount: 0 };
-    }
-    grouped[date].transitions.push(transition);
-    const amount =
-      transition.type === 'Expense' ? -transition.amount : transition.amount;
-    grouped[date].amount += amount;
-  }
-
-  return grouped;
-};
-
-const TransitionList = async () => {
+const TransitionList = async ({ range }) => {
   const supabase = createClient();
-  const { data: transitions, error } = await supabase
-    .from('transactions')
-    .select()
-    .order('created_at', { ascending: false });
+  const { data: transitions, error } = await supabase.rpc(
+    'fetch_transactions',
+    {
+      // limit_arg,
+      // offset_arg,
+      range_arg: range,
+    }
+  );
+
+  if (error) throw new Error("Couldn't fetch transactions.");
 
   const groupedTransitions = groupAndSumTransitionByDate(transitions);
 
