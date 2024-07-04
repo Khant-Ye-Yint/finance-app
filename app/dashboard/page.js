@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import TransitionList from '@/app/dashboard/components/transition-list';
+import TransitionListWrapper from './components/transition-list-wrapper';
 import TransitionListFallback from '@/app/dashboard/components/transition-list-fallback';
 import Trend from './components/trend';
 import TrendFallBack from './components/trend-fallback';
@@ -51,7 +51,7 @@ const DashboardPage = async ({ searchParams }) => {
         </Link>
       </section>
       <Suspense fallback={<TransitionListFallback />}>
-        <TransitionList range={range} />
+        <TransitionListWrapper range={range} />
       </Suspense>
     </div>
   );

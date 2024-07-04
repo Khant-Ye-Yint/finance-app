@@ -10,10 +10,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { transactionSchema } from '@/lib/validation';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createTransaction, purgeTransactionListCache } from '@/lib/actions';
+import { createTransaction, updateTransaction } from '@/lib/actions';
 import FormError from '@/components/form-error';
 
-const TransactionForm = () => {
+const TransactionForm = ({ initialData }) => {
   const {
     register,
     handleSubmit,
@@ -23,21 +23,26 @@ const TransactionForm = () => {
   } = useForm({
     mode: 'onTouched',
     resolver: zodResolver(transactionSchema),
+    defaultValues: initialData ?? {
+      created_at: new Date().toISOString().split('T')[0],
+    },
   });
 
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState();
   const type = watch('type');
-  const category = watch('category');
-  console.log(type);
-  console.log(category);
+  const editing = Boolean(initialData);
 
   const submitHandler = async (data) => {
     setSaving(true);
     setError();
     try {
-      await createTransaction(data);
+      if (editing) {
+        await updateTransaction(initialData.id, data);
+      } else {
+        await createTransaction(data);
+      }
       router.push('/dashboard');
     } catch (err) {
       setError(err);
@@ -84,7 +89,7 @@ const TransactionForm = () => {
         </div>
         <div>
           <Label className="mb-1 ">Date</Label>
-          <Input {...register('created_at')} />
+          <Input {...register('created_at')} disabled={editing} />
           <FormError error={errors.created_at} />
         </div>
         <div>

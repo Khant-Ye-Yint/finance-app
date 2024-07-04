@@ -1,7 +1,18 @@
 import useFormatCurrency from '@/hooks/useFormatCurrency';
 import { HandCoins, Landmark, PiggyBank, Wallet } from 'lucide-react';
+import TransitionItemRemoveButton from './transition-item-remove-button';
+import Link from 'next/link';
+import { Pencil } from 'lucide-react';
+import Button from './button';
 
-const TransitionItem = ({ type, category, description, amount }) => {
+const TransitionItem = ({
+  id,
+  type,
+  category,
+  description,
+  amount,
+  onRemove,
+}) => {
   const formattedAmount = useFormatCurrency(amount, 'mm', 'MMK');
 
   const iconMap = {
@@ -43,8 +54,16 @@ const TransitionItem = ({ type, category, description, amount }) => {
           </div>
         )}
       </div>
+
       <div className=" min-w-[70px] text-right">{formattedAmount}</div>
-      <div className=" min-w-[50px] flex justify-end">...</div>
+      <div className=" min-w-[100px] flex justify-end items-center space-x-1 ">
+        <Link href={`/dashboard/transaction/${id}/edit`}>
+          <Button size="xs" varient="ghost" className="py-2">
+            <Pencil size={16} />
+          </Button>
+        </Link>
+        <TransitionItemRemoveButton id={id} onRemove={onRemove} />
+      </div>
     </div>
   );
 };
