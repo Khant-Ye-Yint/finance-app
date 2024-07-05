@@ -10,6 +10,10 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { types } from '@/lib/consts';
 import Range from './components/range';
 
+import { Rubik } from 'next/font/google';
+
+const rubik = Rubik({ subsets: ['latin'] });
+
 export const metadata = {
   title: 'Dashboard',
 };
@@ -17,9 +21,11 @@ export const metadata = {
 const DashboardPage = async ({ searchParams }) => {
   const range = searchParams?.range ?? 'last30days';
   return (
-    <div className="space-y-8 ">
+    <div className="py-8 space-y-8">
       <section className="flex items-center justify-between ">
-        <h1 className="text-4xl font-semibold ">Summary</h1>
+        <h1 className={`${rubik.className} text-4xl font-semibold `}>
+          Summary
+        </h1>
         <aside>
           <Range />
         </aside>
@@ -41,7 +47,7 @@ const DashboardPage = async ({ searchParams }) => {
         ))}
       </section>
       <section className="flex items-center justify-between">
-        <h2 className="text-2xl">Transactions</h2>
+        <h2 className={`text-2xl ${rubik.className}`}>Transactions</h2>
         <Link
           href="dashboard/transaction/add"
           className={` flex items-center space-x-1 ${varients['outline']} ${sizes['sm']}`}

@@ -2,6 +2,9 @@
 import { useMemo } from 'react';
 import { ArrowDownLeft, ArrowUpRight } from 'lucide-react';
 import useFormatCurrency from '@/hooks/useFormatCurrency';
+import { Rubik } from 'next/font/google';
+
+const rubik = Rubik({ subsets: ['latin'] });
 
 const Trend = ({ type, amount, prevAmount }) => {
   const colorClasses = {
@@ -31,7 +34,9 @@ const Trend = ({ type, amount, prevAmount }) => {
 
   return (
     <div>
-      <div className={`font-semibold ${colorClasses[type]}`}>{type}</div>
+      <div className={`font-semibold ${colorClasses[type]} ${rubik.className}`}>
+        {type}
+      </div>
       <div className="mb-2 text-2xl font-semibold text-black dark:text-white">
         {formattedCurrency}
       </div>

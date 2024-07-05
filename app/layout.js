@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
       <body className={`${mono.className} flex flex-col min-h-screen `}>
         <ThemeProvider attribute="class">
           <PageHeader />
-          <main className="grow">{children}</main>
+          <main className="container mx-auto grow">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
