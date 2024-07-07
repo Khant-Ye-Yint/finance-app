@@ -7,14 +7,23 @@ import { motion, useInView } from 'framer-motion';
 
 const rubik = Rubik({ subsets: ['latin'] });
 
-const variants = {
+const containerVariants = {
   initial: {
-    x: -100,
     opacity: 0,
   },
   animate: {
-    x: 0,
     opacity: 1,
+    transition: { duration: 1.3, staggerChildren: 0.3 },
+  },
+};
+
+const itemVariants = {
+  initial: {
+    x: -150,
+  },
+  animate: {
+    x: 0,
+    transition: { duration: 1.3 },
   },
 };
 
@@ -49,15 +58,18 @@ const FAQ = () => {
       >
         Frequently Asked Questions
       </h1>
-      <motion.div className="w-full space-y-4" ref={ref}>
+      <motion.div
+        className="w-full space-y-4"
+        ref={ref}
+        variants={containerVariants}
+        initial="initial"
+        animate={isInView ? 'animate' : 'initial'}
+      >
         {faqData.map((chunk, id) => (
           <motion.div
             className="collapse collapse-plus"
             key={id}
-            variants={variants}
-            initial="initial"
-            animate={isInView ? 'animate' : 'initial'}
-            transition={{ delay: 0.2 * id, duration: 1.3 }}
+            variants={itemVariants}
           >
             <input
               type="radio"

@@ -37,7 +37,7 @@ const Stats = () => {
       </h1>
       <div
         ref={ref}
-        className="px-8 py-4 bg-black shadow md:px-16 md:py-8 dark:bg-slate-200 stats stats-vertical lg:stats-horizontal"
+        className="px-8 py-4 bg-black shadow md:px-16 md:py-8 dark:bg-slate-100 stats stats-vertical lg:stats-horizontal"
       >
         <div className="stat">
           <div className="text-green-500 stat-figure">
