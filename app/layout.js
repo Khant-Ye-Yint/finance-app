@@ -8,7 +8,7 @@ import PageHeader from '@/components/page-header';
 import Footer from '@/components/footer';
 
 export const metadata = {
-  title: { template: '%s | Finance App', default: 'Finance App' },
+  title: { template: '%s | Finance Guru', default: 'Finance Guru' },
   description: 'Your daily companion',
 };
 

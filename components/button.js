@@ -12,7 +12,7 @@ const Button = (props) => {
       {...props}
       className={`${
         varient ? varients[varient] : varients['default']
-      } shadow-md  ${size ? sizes[size] : sizes['base']} ${props.className}`}
+      } shadow-md  ${size ? sizes[size] : sizes['base']} ${props.className} `}
     ></motion.button>
   );
 };

@@ -11,6 +11,7 @@ import { types } from '@/lib/consts';
 import Range from './components/range';
 
 import { Rubik } from 'next/font/google';
+import { createClient } from '@/lib/supabase/server';
 
 const rubik = Rubik({ subsets: ['latin'] });
 
@@ -20,6 +21,10 @@ export const metadata = {
 
 const DashboardPage = async ({ searchParams }) => {
   const range = searchParams?.range ?? 'last30days';
+
+  const supabase = createClient();
+  console.log(await supabase.auth.getUser());
+
   return (
     <div className="py-8 space-y-8">
       <section className="flex items-center justify-between ">
