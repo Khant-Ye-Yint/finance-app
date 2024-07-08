@@ -55,8 +55,11 @@ const TransactionForm = ({ initialData }) => {
     <form className="space-y-4 " onSubmit={handleSubmit(submitHandler)}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
-          <Label className="mb-1 ">Type</Label>
+          <Label className="mb-1 " htmlFor="type">
+            Type
+          </Label>
           <Select
+            id="type"
             {...register('type', {
               onChange: (e) => {
                 if (e.target.value !== 'Expense') {
@@ -72,11 +75,14 @@ const TransactionForm = ({ initialData }) => {
           <FormError error={errors.type} />
         </div>
         <div>
-          <Label className="mb-1 ">Category</Label>
+          <Label className="mb-1 " htmlFor="category">
+            Category
+          </Label>
           <Select
             {...register('category')}
             disabled={type !== 'Expense'}
             defaultValue=""
+            id="category"
           >
             <option value="" disabled>
               Select your category
@@ -88,18 +94,24 @@ const TransactionForm = ({ initialData }) => {
           <FormError error={errors.category} />
         </div>
         <div>
-          <Label className="mb-1 ">Date</Label>
-          <Input {...register('created_at')} disabled={editing} />
+          <Label className="mb-1 " htmlFor="date">
+            Date
+          </Label>
+          <Input id="date" {...register('created_at')} disabled={editing} />
           <FormError error={errors.created_at} />
         </div>
         <div>
-          <Label className="mb-1 ">Amount</Label>
-          <Input type="number" {...register('amount')} />
+          <Label className="mb-1 " htmlFor="amount">
+            Amount
+          </Label>
+          <Input type="number" {...register('amount')} id="amount" />
           <FormError error={errors.amount} />
         </div>
         <div className="col-span-1 md:col-span-2 ">
-          <Label className="mb-1 ">Description</Label>
-          <Input {...register('description')} />
+          <Label className="mb-1 " htmlFor="description">
+            Description
+          </Label>
+          <Input {...register('description')} id="description" />
           <FormError error={errors.description} />
         </div>
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { Trash2, Loader } from 'lucide-react';
 import Button from './button';
 import { deleteTransition } from '@/lib/actions';
