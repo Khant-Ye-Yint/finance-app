@@ -4,8 +4,6 @@ import './globals.css';
 const mono = Roboto_Mono({ subsets: ['latin'] });
 
 import { ThemeProvider } from 'next-themes';
-import PageHeader from '@/components/page-header';
-import Footer from '@/components/footer';
 
 export const metadata = {
   title: { template: '%s | Finance Guru', default: 'Finance Guru' },
@@ -17,9 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={`${mono.className} flex flex-col min-h-screen `}>
         <ThemeProvider attribute="class">
-          <PageHeader />
           <main className="container mx-auto grow">{children}</main>
-          <Footer />
         </ThemeProvider>
       </body>
     </html>
