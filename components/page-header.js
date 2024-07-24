@@ -27,7 +27,8 @@ const UserDropdown = async () => {
       {user && <SignOutButton />}
       {!user && (
         <Link href="/login" className={`${varients.ghost} ${sizes.sm} py-2`}>
-          <KeyRound className="w-6 h-6 " />
+          {/* <KeyRound className="w-6 h-6 " /> */}
+          Sign In
         </Link>
       )}
     </div>
