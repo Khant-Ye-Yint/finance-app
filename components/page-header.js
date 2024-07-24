@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import ToggleMode from './toggleMode';
-import { CircleUser, KeyRound, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { sizes, varients } from '@/lib/variants';
 import SignOutButton from '@/app/(auth)/components/sign-out-button';
+import Avatar from './avatar';
 
 const UserDropdown = async () => {
   const supabase = createClient();
@@ -15,14 +16,13 @@ const UserDropdown = async () => {
   return (
     <div className="flex flex-col items-center md:space-x-2 md:flex-row ">
       {user && (
-        <button
-          varient="ghost"
-          size="sm"
+        <Link
+          href="/dashboard/settings"
           className={`${varients.ghost} ${sizes.sm} flex items-center space-x-1 py-2`}
         >
-          <CircleUser className="w-6 h-6 " />
+          <Avatar />
           <span>{user?.email}</span>
-        </button>
+        </Link>
       )}
       {user && <SignOutButton />}
       {!user && (
