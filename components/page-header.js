@@ -21,7 +21,7 @@ const UserDropdown = async () => {
           className={`${varients.ghost} ${sizes.sm} flex items-center space-x-1 py-2`}
         >
           <Avatar />
-          <span>{user?.email}</span>
+          <span>{user?.user_metadata?.fullName ?? user?.email}</span>
         </Link>
       )}
       {user && <SignOutButton />}

@@ -20,10 +20,14 @@ export const metadata = {
 };
 
 const DashboardPage = async ({ searchParams }) => {
-  const range = searchParams?.range ?? 'last30days';
-
   const supabase = createClient();
-  console.log(await supabase.auth.getUser());
+  const {
+    data: {
+      user: { user_metadata: settings },
+    },
+  } = await supabase.auth.getUser();
+
+  const range = searchParams?.range ?? settings?.defaultView ?? 'last30days';
 
   return (
     <div className="py-8 space-y-8">
@@ -32,7 +36,7 @@ const DashboardPage = async ({ searchParams }) => {
           Summary
         </h1>
         <aside>
-          <Range />
+          <Range defaultView={settings?.defaultView} />
         </aside>
       </section>
       <section className="grid grid-cols-2 gap-8 md:grid-cols-4">

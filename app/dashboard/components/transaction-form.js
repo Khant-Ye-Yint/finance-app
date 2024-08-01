@@ -45,7 +45,7 @@ const TransactionForm = ({ initialData }) => {
       }
       router.push('/dashboard');
     } catch (err) {
-      setError(err);
+      setError(err?.message);
     } finally {
       setSaving(false);
     }
@@ -72,7 +72,7 @@ const TransactionForm = ({ initialData }) => {
               <option key={type}>{type}</option>
             ))}
           </Select>
-          <FormError error={errors.type} />
+          <FormError error={errors.type?.message} />
         </div>
         <div>
           <Label className="mb-1 " htmlFor="category">
@@ -91,28 +91,28 @@ const TransactionForm = ({ initialData }) => {
               <option key={category}>{category}</option>
             ))}
           </Select>
-          <FormError error={errors.category} />
+          <FormError error={errors.category?.message} />
         </div>
         <div>
           <Label className="mb-1 " htmlFor="date">
             Date
           </Label>
           <Input id="date" {...register('created_at')} disabled={editing} />
-          <FormError error={errors.created_at} />
+          <FormError error={errors.created_at?.message} />
         </div>
         <div>
           <Label className="mb-1 " htmlFor="amount">
             Amount
           </Label>
           <Input type="number" {...register('amount')} id="amount" />
-          <FormError error={errors.amount} />
+          <FormError error={errors.amount?.message} />
         </div>
         <div className="col-span-1 md:col-span-2 ">
           <Label className="mb-1 " htmlFor="description">
             Description
           </Label>
           <Input {...register('description')} id="description" />
-          <FormError error={errors.description} />
+          <FormError error={errors.description?.message} />
         </div>
 
         <div className="flex items-center justify-between col-span-1 md:col-span-2">

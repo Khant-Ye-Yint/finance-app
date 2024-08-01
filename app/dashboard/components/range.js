@@ -3,12 +3,12 @@
 import Select from '@/components/select';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-const Range = () => {
+const Range = ({ defaultView }) => {
   const searchParams = useSearchParams();
   const path = usePathname();
   const { replace } = useRouter();
 
-  const range = searchParams.get('range') ?? 'last30days';
+  const range = searchParams.get('range') ?? defaultView ?? 'last30days';
 
   const handleChange = (e) => {
     const params = new URLSearchParams();
